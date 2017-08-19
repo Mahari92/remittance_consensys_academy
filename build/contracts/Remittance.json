@@ -1,0 +1,301 @@
+{
+  "contract_name": "Remittance",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "challenges",
+      "outputs": [
+        {
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "name": "doubleHash1",
+          "type": "bytes32"
+        },
+        {
+          "name": "doubleHash2",
+          "type": "bytes32"
+        },
+        {
+          "name": "deadline",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "doubleHash1",
+          "type": "bytes32"
+        },
+        {
+          "name": "doubleHash2",
+          "type": "bytes32"
+        },
+        {
+          "name": "duration",
+          "type": "uint256"
+        }
+      ],
+      "name": "registerChallenge",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": true,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "kill",
+      "outputs": [],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "refund",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "data",
+          "type": "bytes32"
+        }
+      ],
+      "name": "hashIt",
+      "outputs": [
+        {
+          "name": "hash",
+          "type": "bytes32"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "hash1",
+          "type": "bytes32"
+        },
+        {
+          "name": "hash2",
+          "type": "bytes32"
+        },
+        {
+          "name": "creator",
+          "type": "address"
+        }
+      ],
+      "name": "solveChallenge",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "fee",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "payable": false,
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "doubleHash1",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "doubleHash2",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "deadline",
+          "type": "uint256"
+        }
+      ],
+      "name": "LogChallenge",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "doubleHash1",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "doubleHash2",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "name": "beneficiary",
+          "type": "address"
+        }
+      ],
+      "name": "LogSolved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "creator",
+          "type": "address"
+        }
+      ],
+      "name": "LogRefund",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x6060604052341561000f57600080fd5b5b60008054600160a060020a03191633600160a060020a03161790556501176592e0006001555b5b6105be806100466000396000f300606060405236156100725763ffffffff60e060020a60003504166308b43a1981146100775780631cb90bee146100c257806341c0e1b5146100e7578063590e1ae3146100fc57806361236c97146101235780637f3cdbc21461014b5780638da5cb5b14610184578063ddca3f43146101b3575b600080fd5b341561008257600080fd5b610096600160a060020a03600435166101d8565b604051938452602084019290925260408084019190915260608301919091526080909101905180910390f35b6100d3600435602435604435610201565b604051901515815260200160405180910390f35b34156100f257600080fd5b6100fa6102f1565b005b341561010757600080fd5b6100d361031c565b604051901515815260200160405180910390f35b341561012e57600080fd5b6101396004356103eb565b60405190815260200160405180910390f35b341561015657600080fd5b6100d3600435602435600160a060020a0360443516610407565b604051901515815260200160405180910390f35b341561018f57600080fd5b61019761057d565b604051600160a060020a03909116815260200160405180910390f35b34156101be57600080fd5b61013961058c565b60405190815260200160405180910390f35b600260208190526000918252604090912080546001820154928201546003909201549092919084565b600154600090341161021257600080fd5b619d8082108015610224575061168082115b151561022f57600080fd5b600160a060020a03331660009081526002602052604090206003015443901061025757600080fd5b60018054600160a060020a0333166000908152600260208190526040918290203493909303808455938301889055820186905543850160039092018290557f1159318b8dbb9f1daf287b2ca14feede02d1e8cc48b6968b428fdaa4db6a64dd9291879187919051938452602084019290925260408084019190915260608301919091526080909101905180910390a15060015b9392505050565b60005433600160a060020a0390811691161461030c57600080fd5b600054600160a060020a0316ff5b565b600160a060020a03331660009081526002602052604081206003015443901061034457600080fd5b600160a060020a0333166000908152600260205260408120541161036757600080fd5b600160a060020a033316600081815260026020526040908190205480156108fc029151600060405180830381858888f1935050505015156103a757600080fd5b7fa106080046e721a64324bdde8bc3488902e644ecc9f2e01c2db2c65debf6fa2e33604051600160a060020a03909116815260200160405180910390a15060015b90565b600081604051908152602001604051809103902090505b919050565b600160a060020a0381166000908152600260205260408120600301548190819043901161043357600080fd5b856040519081526020016040518091039020915084604051908152602001604051908190039020600160a060020a038516600090815260026020526040902060010154909150821461048457600080fd5b600160a060020a0384166000908152600260208190526040909120015481146104ac57600080fd5b600160a060020a03848116600090815260026020526040908190205433909216916108fc8115029151600060405180830381858888f1935050505015156104f257600080fd5b600160a060020a038416600090815260026020526040808220600381018390558290557fe9f995635dc7f195631e6bb67f28d4f137eac56ef110f4c407e8f4547e3bfd0b9190849084903390519384526020840192909252604080840191909152600160a060020a0390911660608301526080909101905180910390a1600192505b50509392505050565b600054600160a060020a031681565b600154815600a165627a7a72305820392682fea0a62c6aded1816bd2f14763fefdfe74f42d881bd3595520099198870029",
+  "networks": {
+    "1503141020347": {
+      "events": {
+        "0x1159318b8dbb9f1daf287b2ca14feede02d1e8cc48b6968b428fdaa4db6a64dd": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "doubleHash1",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "doubleHash2",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "deadline",
+              "type": "uint256"
+            }
+          ],
+          "name": "LogChallenge",
+          "type": "event"
+        },
+        "0xe9f995635dc7f195631e6bb67f28d4f137eac56ef110f4c407e8f4547e3bfd0b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "name": "doubleHash1",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "doubleHash2",
+              "type": "bytes32"
+            },
+            {
+              "indexed": false,
+              "name": "beneficiary",
+              "type": "address"
+            }
+          ],
+          "name": "LogSolved",
+          "type": "event"
+        },
+        "0xa106080046e721a64324bdde8bc3488902e644ecc9f2e01c2db2c65debf6fa2e": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "creator",
+              "type": "address"
+            }
+          ],
+          "name": "LogRefund",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x0ebd0748479a8c50b0179eaea029182a4b85509f",
+      "updated_at": 1503150865881
+    }
+  },
+  "schema_version": "0.0.5",
+  "updated_at": 1503150865881
+}
