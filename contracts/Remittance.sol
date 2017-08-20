@@ -66,6 +66,8 @@ contract Remittance {
         require(challenges[msg.sender].deadline<block.number);
         require(challenges[msg.sender].amount>0);
         msg.sender.transfer(challenges[msg.sender].amount);
+        challenges[msg.sender].amount = 0;
+        challenges[msg.sender].deadline = 0;
         LogRefund(msg.sender);
         return true;
     }
