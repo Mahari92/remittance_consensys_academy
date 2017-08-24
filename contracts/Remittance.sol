@@ -57,6 +57,7 @@ contract Remittance is Wallet {
         challenges[msg.sender].amount = msg.value-fee;
         challenges[msg.sender].doubleHash = doubleHash;
         challenges[msg.sender].deadline = block.number+duration;
+        addMoney(owner,fee);
         LogChallenge(challenges[msg.sender].amount, doubleHash, challenges[msg.sender].deadline);
         return true;
     }
@@ -69,7 +70,6 @@ contract Remittance is Wallet {
         require(challenges[creator].doubleHash == doubleHash); //Solved!
         challenges[creator].deadline = 0; //reset the deadline so another challenge can be made
         challenges[creator].amount = 0; //reset the amount to prevent double expend
-        addMoney(owner,fee);
         addMoney(msg.sender,challenges[creator].amount);
         LogSolved(challenges[creator].amount, doubleHash,msg.sender);
         return true;
@@ -89,7 +89,7 @@ contract Remittance is Wallet {
         require(challenges[msg.sender].amount>0);
         challenges[msg.sender].amount = 0;
         challenges[msg.sender].deadline = 0;
-        msg.sender.transfer(challenges[msg.sender].amount);
+        addMoney(msg.sender,challenges[msg.sender].amount);
         LogRefund(msg.sender);
         return true;
     }
