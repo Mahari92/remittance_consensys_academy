@@ -76,4 +76,13 @@ contract('Remittance', function (accounts) {
       });
   });
 
+
+  it("should kill itself", () => {
+    return instance.kill({ from: accounts[0] }).then(()=>{
+      return web3.eth.getCode(instance.address);
+    }).then((code)=>{
+      assert.equal(code,"0x0","Did not kill itself");
+    })
+  });
+
 });
