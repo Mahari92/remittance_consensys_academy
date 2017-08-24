@@ -1,7 +1,31 @@
 pragma solidity ^0.4.6;
 
+contract Wallet{
+    event LogMoneyAdded(address account, uint amount);
+    event LogWithdraw(address account, uint amount);
+    
+    mapping(address=>uint) public balances;
+    
+    function withdraw()
+    public
+    returns(bool success){
+        require(balances[msg.sender]>0);
+        uint amount =  balances[msg.sender];
+        balances[msg.sender]=0;
+        msg.sender.transfer(amount);
+        LogWithdraw(msg.sender, amount);
+        return true;
+    }
+    
+    function addMoney(address account, uint amount)
+    internal{
+        balances[account] += amount;
+        LogMoneyAdded(account,amount);
+    }
+}
 
-contract Remittance {
+
+contract Remittance is Wallet {
     address public owner;
     uint public fee;
     
@@ -27,7 +51,8 @@ contract Remittance {
     payable
     returns(bool success){
         require(msg.value>fee);
-        require(duration<40320&&duration>5760); //Duration must be between 1 day and 1 week
+        
+        require(duration<(7 days/15)&&duration>(1 days/15)); //Duration must be between 1 day and 1 week
         require(challenges[msg.sender].deadline<block.number); //the last challenge must have passed or never happened (uint starts at zero)
         challenges[msg.sender].amount = msg.value-fee;
         challenges[msg.sender].doubleHash = doubleHash;
@@ -42,9 +67,10 @@ contract Remittance {
         require(challenges[creator].deadline>block.number);
         bytes32 doubleHash = keccak256(hash1,hash2);
         require(challenges[creator].doubleHash == doubleHash); //Solved!
-        msg.sender.transfer(challenges[creator].amount);
         challenges[creator].deadline = 0; //reset the deadline so another challenge can be made
         challenges[creator].amount = 0; //reset the amount to prevent double expend
+        addMoney(owner,fee);
+        addMoney(msg.sender,challenges[creator].amount);
         LogSolved(challenges[creator].amount, doubleHash,msg.sender);
         return true;
     }
@@ -59,11 +85,11 @@ contract Remittance {
     function refund()
     public
     returns(bool success){
-        require(challenges[msg.sender].deadline<block.number);
+        require(challenges[msg.sender].deadline<=block.number);
         require(challenges[msg.sender].amount>0);
-        msg.sender.transfer(challenges[msg.sender].amount);
         challenges[msg.sender].amount = 0;
         challenges[msg.sender].deadline = 0;
+        msg.sender.transfer(challenges[msg.sender].amount);
         LogRefund(msg.sender);
         return true;
     }

@@ -35,7 +35,7 @@ contract('Remittance', function (accounts) {
   var hash2, doubleHash;
 
   beforeEach(function (done) {
-    Remittance.deployed().then(function (_instance) { //deploy it
+    Remittance.new().then(function (_instance) { //deploy it
       instance = _instance;
       var passwords = [pass1, pass2];
       Promise.all(passwords.map((password) => instance.hashIt([password], { from: accounts[0] })))
